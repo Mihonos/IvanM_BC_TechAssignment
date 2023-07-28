@@ -28,8 +28,14 @@ public class BetExpertLoginPage extends BaseTest {
     WebElement loginBtn;
     @FindBy(xpath = "//a[@href='https://www.bettercollective.com']")
     WebElement bcLinkBtn;
+    @FindBy(css = "input[placeholder='username or email']")
+    WebElement emailTxtField;
+    @FindBy(css = "input[placeholder='password']")
+    WebElement passwTxtField;
+    @FindBy(css = "button[title='Login']")
+    WebElement formLoginBtn;
     @FindBy(css = ".be-form__alert")
-    WebElement invalidUserBtn;
+    WebElement invalidUserMsg;
 
     public void cookieAccept() {
         wdWait.until(ExpectedConditions.elementToBeClickable(iAcceptBtn)).click();
@@ -58,6 +64,14 @@ public class BetExpertLoginPage extends BaseTest {
             //driver.navigate().forward();
             //return driver.getCurrentUrl();
         }
+    }
+
+    public boolean invalidUserWarningMsg(){
+        emailTxtField.sendKeys("sds");
+        passwTxtField.sendKeys("kurb");
+        formLoginBtn.click();
+        wdWait.until(ExpectedConditions.visibilityOf(invalidUserMsg));
+        return invalidUserMsg.isDisplayed();
     }
 }
 
