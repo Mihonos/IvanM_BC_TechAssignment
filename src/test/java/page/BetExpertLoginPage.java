@@ -42,6 +42,12 @@ public class BetExpertLoginPage extends BaseTest {
     WebElement invalidPasswMsg;
     @FindBy(xpath = "//div[@class='be-form__alert'][contains(.,' User is blocked ')]")
     WebElement blockedUserMsg;
+    @FindBy(xpath = "//div[@class='be-form__alert ng-star-inserted'][contains(.,' Please enter a username ')]")
+    WebElement usernameWarnMsg;
+    @FindBy(xpath = "//div[@class='be-form__alert ng-star-inserted'][contains(.,' Please write a password ')]")
+    WebElement passwordWarnMsg;
+    @FindBy(css = "div[class='be-checkbox-wrap__left']")
+    WebElement checkBox;
 
     public void cookieAccept() {
         wdWait.until(ExpectedConditions.elementToBeClickable(iAcceptBtn)).click();
@@ -51,6 +57,7 @@ public class BetExpertLoginPage extends BaseTest {
         wdWait.until(ExpectedConditions.elementToBeClickable(loginFormBtn)).click();
     }
 
+    // Methods checking redirections
     public void redirectionToFacebookPage() throws IOException {
         fcbLoginBtn.click();
         for (String winHandle : driver.getWindowHandles()) {
@@ -66,12 +73,12 @@ public class BetExpertLoginPage extends BaseTest {
             driver.switchTo().window(winHandle);
             File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             FileUtils.copyFile(file, new File("src/screenshots/BCScreenshot.png"));
-
             //driver.navigate().forward();
             //return driver.getCurrentUrl();
         }
     }
 
+    // Methods checking Warning Messages
     public boolean invalidUserWarningMsg(){
         emailTxtField.sendKeys("sds");
         passwTxtField.sendKeys("kurb");
@@ -94,6 +101,20 @@ public class BetExpertLoginPage extends BaseTest {
         formLoginBtn.click();
         wdWait.until(ExpectedConditions.visibilityOf(invalidPasswMsg));
         return invalidPasswMsg.isDisplayed();
+    }
+
+    public boolean enterUsernameWarnMsg(String email){
+        typeText(emailTxtField,email);
+        checkBox.click();
+        wdWait.until(ExpectedConditions.visibilityOf(usernameWarnMsg));
+        return usernameWarnMsg.isDisplayed();
+    }
+
+    public boolean enterPasswWarnMsg(String password){
+        typeText(passwTxtField,password);
+        checkBox.click();
+        wdWait.until(ExpectedConditions.visibilityOf(passwordWarnMsg));
+        return passwordWarnMsg.isDisplayed();
     }
 }
 
