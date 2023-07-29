@@ -36,6 +36,12 @@ public class BetExpertLoginPage extends BaseTest {
     WebElement formLoginBtn;
     @FindBy(css = ".be-form__alert")
     WebElement invalidUserMsg;
+    @FindBy(xpath = "//div[@class='be-form__alert'][contains(.,' Inactive user ')]")
+    WebElement inactiveUserMsg;
+    @FindBy(xpath = "//div[@class='be-form__alert'][contains(.,' Invalid password ')]")
+    WebElement invalidPasswMsg;
+    @FindBy(xpath = "//div[@class='be-form__alert'][contains(.,' User is blocked ')]")
+    WebElement blockedUserMsg;
 
     public void cookieAccept() {
         wdWait.until(ExpectedConditions.elementToBeClickable(iAcceptBtn)).click();
@@ -72,6 +78,22 @@ public class BetExpertLoginPage extends BaseTest {
         formLoginBtn.click();
         wdWait.until(ExpectedConditions.visibilityOf(invalidUserMsg));
         return invalidUserMsg.isDisplayed();
+    }
+    // This method works only before activating the account, after that InactiveMsgTest fails
+    public boolean inactiveUserMsg(String email, String password){
+        typeText(emailTxtField,email);
+        typeText(passwTxtField,password);
+        formLoginBtn.click();
+        wdWait.until(ExpectedConditions.visibilityOf(inactiveUserMsg));
+        return inactiveUserMsg.isDisplayed();
+    }
+
+    public boolean invalidPasswordMsg(String email, String password){
+        typeText(emailTxtField,email);
+        typeText(passwTxtField,password);
+        formLoginBtn.click();
+        wdWait.until(ExpectedConditions.visibilityOf(invalidPasswMsg));
+        return invalidPasswMsg.isDisplayed();
     }
 }
 
