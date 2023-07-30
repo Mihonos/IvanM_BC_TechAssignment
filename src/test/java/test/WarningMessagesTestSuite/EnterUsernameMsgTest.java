@@ -19,7 +19,6 @@ public class EnterUsernameMsgTest extends BaseTest {
     public void EnterUsernameMessageTest() {
         betExpertLoginPage.cookieAccept();
         betExpertLoginPage.openLoginForm();
-        betExpertLoginPage.enterUsernameWarnMsg("");
         Assert.assertTrue(betExpertLoginPage.enterUsernameWarnMsg(""));
     }
 }

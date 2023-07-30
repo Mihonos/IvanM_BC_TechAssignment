@@ -2,6 +2,7 @@ package page;
 
 import base.BaseTest;
 import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
@@ -28,13 +29,13 @@ public class BetExpertLoginPage extends BaseTest {
     WebElement loginBtn;
     @FindBy(xpath = "//a[@href='https://www.bettercollective.com']")
     WebElement bcLinkBtn;
-    @FindBy(css = "input[placeholder='username or email']")
+    @FindBy(css = "input[formcontrolname='username']")
     WebElement emailTxtField;
     @FindBy(css = "input[placeholder='password']")
     WebElement passwTxtField;
     @FindBy(css = "button[title='Login']")
     WebElement formLoginBtn;
-    @FindBy(css = ".be-form__alert")
+    @FindBy(css = "//div[@class='be-form__alert'][contains(.,' Invalid user ')]")
     WebElement invalidUserMsg;
     @FindBy(xpath = "//div[@class='be-form__alert'][contains(.,' Inactive user ')]")
     WebElement inactiveUserMsg;
@@ -48,6 +49,10 @@ public class BetExpertLoginPage extends BaseTest {
     WebElement passwordWarnMsg;
     @FindBy(css = "div[class='be-checkbox-wrap__left']")
     WebElement checkBox;
+    @FindBy(xpath = "//div[@class='be-row be-align--middle']/div[contains(.,'sivac')]")
+    WebElement userName;
+    @FindBy(xpath = "//div/a[contains(.,'Profile ')]")
+    WebElement profileBtn;
 
     public void cookieAccept() {
         wdWait.until(ExpectedConditions.elementToBeClickable(iAcceptBtn)).click();
@@ -79,43 +84,72 @@ public class BetExpertLoginPage extends BaseTest {
     }
 
     // Methods checking Warning Messages
-    public boolean invalidUserWarningMsg(){
-        emailTxtField.sendKeys("sds");
-        passwTxtField.sendKeys("kurb");
+    public boolean invalidUserWarningMsg(String email, String password) {
+        typeText(emailTxtField, email);
+        typeText(passwTxtField, password);
         formLoginBtn.click();
         wdWait.until(ExpectedConditions.visibilityOf(invalidUserMsg));
         return invalidUserMsg.isDisplayed();
     }
+
     // This method works only before activating the account, after that InactiveMsgTest fails
-    public boolean inactiveUserMsg(String email, String password){
-        typeText(emailTxtField,email);
-        typeText(passwTxtField,password);
+    public boolean inactiveUserMsg(String email, String password) {
+        typeText(emailTxtField, email);
+        typeText(passwTxtField, password);
         formLoginBtn.click();
         wdWait.until(ExpectedConditions.visibilityOf(inactiveUserMsg));
         return inactiveUserMsg.isDisplayed();
     }
 
-    public boolean invalidPasswordMsg(String email, String password){
-        typeText(emailTxtField,email);
-        typeText(passwTxtField,password);
+    public boolean invalidPasswordMsg(String email, String password) {
+        typeText(emailTxtField, email);
+        typeText(passwTxtField, password);
         formLoginBtn.click();
         wdWait.until(ExpectedConditions.visibilityOf(invalidPasswMsg));
         return invalidPasswMsg.isDisplayed();
     }
 
-    public boolean enterUsernameWarnMsg(String email){
-        typeText(emailTxtField,email);
+    public boolean enterUsernameWarnMsg(String email) {
+        typeText(emailTxtField, email);
         checkBox.click();
         wdWait.until(ExpectedConditions.visibilityOf(usernameWarnMsg));
         return usernameWarnMsg.isDisplayed();
     }
 
-    public boolean enterPasswWarnMsg(String password){
-        typeText(passwTxtField,password);
+    public boolean enterPasswWarnMsg(String password) {
+        typeText(passwTxtField, password);
         checkBox.click();
         wdWait.until(ExpectedConditions.visibilityOf(passwordWarnMsg));
         return passwordWarnMsg.isDisplayed();
     }
+
+    public void checkPassLength() {
+        // Clear already typed value.
+        passwTxtField.clear();
+
+        // Get maxlength attribute of input box
+        String maxLengthDefined = passwTxtField.getAttribute("maxlength");
+
+        if (maxLengthDefined == null) {
+            System.out.println("No limit is set.");
+        } else {
+            if (maxLengthDefined.equals("10")) {
+                System.out.println("Max character limit is set as expected.");
+            }
+        }
+    }
+
+    public void successfulLogin(String email, String password){
+        typeText(emailTxtField, email);
+        typeText(passwTxtField, password);
+        formLoginBtn.click();
+        wdWait.until(ExpectedConditions.visibilityOf(userName)).click();
+        wdWait.until(ExpectedConditions.elementToBeClickable(profileBtn));
+        String profileBtnName = profileBtn.getText();
+        Assert.assertEquals("Profile", profileBtnName);
+    }
+
 }
+
 
 

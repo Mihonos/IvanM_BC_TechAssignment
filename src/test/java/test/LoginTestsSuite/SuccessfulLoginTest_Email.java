@@ -1,24 +1,23 @@
-package test.WarningMessagesTestSuite;
+package test.LoginTestsSuite;
 
 import base.BaseTest;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import page.BetExpertLoginPage;
 
-public class EnterPasswMsgTest extends BaseTest {
+public class SuccessfulLoginTest_Email extends BaseTest {
 
     BetExpertLoginPage betExpertLoginPage;
 
     @Before
-    public void SetUpTest(){
+    public void SetUp(){
         betExpertLoginPage = new BetExpertLoginPage();
     }
 
     @Test
-    public void EnterPasswordMessageTest() {
+    public void SuccessfulLoginTest(){
         betExpertLoginPage.cookieAccept();
         betExpertLoginPage.openLoginForm();
-        Assert.assertTrue(betExpertLoginPage.enterPasswWarnMsg(""));
+        betExpertLoginPage.successfulLogin("kk@mailinator.com", "kombinat18");
     }
 }

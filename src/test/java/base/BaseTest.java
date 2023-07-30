@@ -22,20 +22,25 @@ public class BaseTest {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         wdWait = new WebDriverWait(driver, 30);
-        driver.get("https://www.bettingexpert.com/");
         driver.manage().window().maximize();
+        driver.get("https://www.bettingexpert.com/");
         actions = new Actions(driver);
     }
 
     public void typeText(WebElement element, String text){
         try {
             wdWait.until(ExpectedConditions.visibilityOf(element));
+
             element.clear();
             element.sendKeys(text);
 
+            System.out.println("Typed text: " + text );
         } catch (StaleElementReferenceException e){
+
             element.clear();
             element.sendKeys(text);
+
+            System.out.println("Typed text: " + text );
         }
 
     }

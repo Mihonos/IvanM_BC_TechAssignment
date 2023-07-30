@@ -1,4 +1,4 @@
-package test.WarningMessagesTestSuite;
+package test.LoginTestsSuite;
 
 import base.BaseTest;
 import org.junit.Assert;
@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import page.BetExpertLoginPage;
 
-public class InvalidUserMsgTest extends BaseTest {
+public class UnsuccessfulLoginTest_WrongPass extends BaseTest {
 
     BetExpertLoginPage betExpertLoginPage;
 
@@ -16,10 +16,9 @@ public class InvalidUserMsgTest extends BaseTest {
     }
 
     @Test
-    public void InvalidUserMessageTest(){
+    public void WrongPasswordTest(){
         betExpertLoginPage.cookieAccept();
         betExpertLoginPage.openLoginForm();
-        betExpertLoginPage.invalidUserWarningMsg("sds", "kurb");
-        Assert.assertTrue(betExpertLoginPage.invalidUserWarningMsg("sds", "kurb"));
+        Assert.assertTrue(betExpertLoginPage.invalidUserWarningMsg("sivac", "kombina18"));
     }
 }

@@ -6,20 +6,19 @@ import org.junit.Before;
 import org.junit.Test;
 import page.BetExpertLoginPage;
 
-public class InvalidUserMsgTest extends BaseTest {
+public class InvalidPasswordMsgTest_PossibleBug extends BaseTest {
 
     BetExpertLoginPage betExpertLoginPage;
 
     @Before
     public void SetUpTest(){
-             betExpertLoginPage = new BetExpertLoginPage();
+        betExpertLoginPage = new BetExpertLoginPage();
     }
 
     @Test
-    public void InvalidUserMessageTest(){
+    public void InvalidPasswordMessageTest() {
         betExpertLoginPage.cookieAccept();
         betExpertLoginPage.openLoginForm();
-        betExpertLoginPage.invalidUserWarningMsg("sds", "kurb");
-        Assert.assertTrue(betExpertLoginPage.invalidUserWarningMsg("sds", "kurb"));
+        Assert.assertTrue(betExpertLoginPage.invalidPasswordMsg("siv", "kombinat18"));
     }
 }

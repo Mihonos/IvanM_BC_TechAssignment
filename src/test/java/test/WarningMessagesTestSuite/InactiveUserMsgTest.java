@@ -19,7 +19,6 @@ public class InactiveUserMsgTest extends BaseTest {
     public void InvalidUserMessageTest() {
         betExpertLoginPage.cookieAccept();
         betExpertLoginPage.openLoginForm();
-        betExpertLoginPage.inactiveUserMsg("sivac","kombinat18");
         Assert.assertTrue(betExpertLoginPage.inactiveUserMsg("sivac", "kombinat18"));
     }
 }
