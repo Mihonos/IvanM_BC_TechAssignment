@@ -1,13 +1,14 @@
-package test.RedirectionsTestSuite;
+package test.RedirectionsTestSuite_WithScreenshots;
 
 import base.BaseTest;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import page.BetExpertLoginPage;
 
 import java.io.IOException;
 
-public class Facebook_screenshot_RedirectionTest extends BaseTest {
+public class ForgotPasswordRedirectionTest extends BaseTest {
 
     BetExpertLoginPage betExpertLoginPage;
 
@@ -17,9 +18,9 @@ public class Facebook_screenshot_RedirectionTest extends BaseTest {
     }
 
     @Test
-    public void FacebookRedirectionTest() throws IOException {
+    public void ForgotPasswordRedirectionTest() throws IOException {
         betExpertLoginPage.cookieAccept();
         betExpertLoginPage.openLoginForm();
-        betExpertLoginPage.redirectionToFacebookPage();
+        Assert.assertTrue(betExpertLoginPage.forgotPasswordRedirection());
     }
 }

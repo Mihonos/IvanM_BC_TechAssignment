@@ -1,4 +1,4 @@
-package test.RedirectionsTestSuite;
+package test.RedirectionsTestSuite_WithScreenshots;
 
 import base.BaseTest;
 import org.junit.Before;
@@ -7,7 +7,7 @@ import page.BetExpertLoginPage;
 
 import java.io.IOException;
 
-public class BCpageRedirectionTest extends BaseTest {
+public class Facebook_screenshot_RedirectionTest extends BaseTest {
 
     BetExpertLoginPage betExpertLoginPage;
 
@@ -17,10 +17,9 @@ public class BCpageRedirectionTest extends BaseTest {
     }
 
     @Test
-    public void BCPageRedirectionTest() throws IOException {
+    public void FacebookRedirectionTest() throws IOException {
         betExpertLoginPage.cookieAccept();
         betExpertLoginPage.openLoginForm();
-        betExpertLoginPage.redirectionToBCPage();
-        //Assert.assertEquals("https://bettercollective.com/",betExpertLoginPage.redirectionToBCPage());
+        betExpertLoginPage.redirectionToFacebookPage();
     }
 }

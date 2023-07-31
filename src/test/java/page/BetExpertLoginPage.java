@@ -22,11 +22,9 @@ public class BetExpertLoginPage extends BaseTest {
     @FindBy(xpath = "//button[@id='onetrust-accept-btn-handler']")
     WebElement iAcceptBtn;
     @FindBy(css = "span[class='ng-tns-c7-4']")
-    WebElement loginFormBtn;
+    WebElement loginBtn;
     @FindBy(xpath = "//button[@title='Login with Facebook']")
     WebElement fcbLoginBtn;
-    @FindBy(css = "input[name='login']")
-    WebElement loginBtn;
     @FindBy(xpath = "//a[@href='https://www.bettercollective.com']")
     WebElement bcLinkBtn;
     @FindBy(css = "input[formcontrolname='username']")
@@ -35,7 +33,7 @@ public class BetExpertLoginPage extends BaseTest {
     WebElement passwTxtField;
     @FindBy(css = "button[title='Login']")
     WebElement formLoginBtn;
-    @FindBy(css = "//div[@class='be-form__alert'][contains(.,' Invalid user ')]")
+    @FindBy(xpath = "//div[text()=' Invalid user ']")
     WebElement invalidUserMsg;
     @FindBy(xpath = "//div[@class='be-form__alert'][contains(.,' Inactive user ')]")
     WebElement inactiveUserMsg;
@@ -53,13 +51,21 @@ public class BetExpertLoginPage extends BaseTest {
     WebElement userName;
     @FindBy(xpath = "//div/a[contains(.,'Profile ')]")
     WebElement profileBtn;
+    @FindBy(xpath = "//div[@class='be-p-top--medium']/be-link/a[contains(.,'Sign up')]")
+    WebElement signUpFreeBtn;
+    @FindBy(xpath = "//div[@class='be-p-top--medium']/be-link/a[contains(.,'Request')]")
+    WebElement forgotPassBtn;
+    @FindBy(xpath = "//h2[text()=(' Sign up with email ')]")
+    WebElement signUpHeader;
+    @FindBy(xpath = "//h2[text()=(' Request password change link ')]")
+    WebElement passwordChangeHeader;
 
     public void cookieAccept() {
         wdWait.until(ExpectedConditions.elementToBeClickable(iAcceptBtn)).click();
     }
 
     public void openLoginForm() {
-        wdWait.until(ExpectedConditions.elementToBeClickable(loginFormBtn)).click();
+        wdWait.until(ExpectedConditions.elementToBeClickable(loginBtn)).click();
     }
 
     // Methods checking redirections
@@ -147,6 +153,25 @@ public class BetExpertLoginPage extends BaseTest {
         wdWait.until(ExpectedConditions.elementToBeClickable(profileBtn));
         String profileBtnName = profileBtn.getText();
         Assert.assertEquals("Profile", profileBtnName);
+    }
+
+    public boolean specialCharactersAndNumbersAcceptance(String email, String password){
+        typeText(emailTxtField, email);
+        typeText(passwTxtField, password);
+        wdWait.until(ExpectedConditions.elementToBeClickable(formLoginBtn));
+        return formLoginBtn.isEnabled();
+    }
+
+    public boolean signUpFreeRedirection(){
+        wdWait.until(ExpectedConditions.elementToBeClickable(signUpFreeBtn)).click();
+        wdWait.until(ExpectedConditions.visibilityOf(signUpHeader));
+        return signUpHeader.isDisplayed();
+    }
+
+    public boolean forgotPasswordRedirection(){
+        wdWait.until(ExpectedConditions.elementToBeClickable(forgotPassBtn)).click();
+        wdWait.until(ExpectedConditions.visibilityOf(passwordChangeHeader));
+        return passwordChangeHeader.isDisplayed();
     }
 
 }

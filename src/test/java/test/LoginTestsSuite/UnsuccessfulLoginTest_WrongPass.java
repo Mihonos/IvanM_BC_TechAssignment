@@ -19,6 +19,6 @@ public class UnsuccessfulLoginTest_WrongPass extends BaseTest {
     public void WrongPasswordTest(){
         betExpertLoginPage.cookieAccept();
         betExpertLoginPage.openLoginForm();
-        Assert.assertTrue(betExpertLoginPage.invalidUserWarningMsg("sivac", "kombina18"));
+        Assert.assertTrue(betExpertLoginPage.invalidPasswordMsg("sivac", "kombiyfna18"));
     }
 }

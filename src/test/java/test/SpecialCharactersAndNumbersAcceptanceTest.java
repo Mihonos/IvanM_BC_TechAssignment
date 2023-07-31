@@ -1,4 +1,4 @@
-package test.WarningMessagesTestSuite;
+package test;
 
 import base.BaseTest;
 import org.junit.Assert;
@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import page.BetExpertLoginPage;
 
-public class InvalidUserMsgTest extends BaseTest {
+public class SpecialCharactersAndNumbersAcceptanceTest extends BaseTest {
 
     BetExpertLoginPage betExpertLoginPage;
 
@@ -16,9 +16,11 @@ public class InvalidUserMsgTest extends BaseTest {
     }
 
     @Test
-    public void InvalidUserMessageTest(){
+    public void SpecialCharactersAndNumbersAcceptanceTest(){
         betExpertLoginPage.cookieAccept();
         betExpertLoginPage.openLoginForm();
-        Assert.assertTrue(betExpertLoginPage.invalidUserWarningMsg("sdsgdfsdhgfhdf", "kurblonvvcnb"));
+        Assert.assertTrue(betExpertLoginPage.specialCharactersAndNumbersAcceptance("sdsHFDER*TH/" +
+                        "ŠČĆŽ{lžšš54538--!#}<!cer> '54'{n}sa",
+                "kurblon246555>!??č--ĆŠPČĆ-><//*vvcnb"));
     }
 }
