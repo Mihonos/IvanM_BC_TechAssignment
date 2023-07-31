@@ -174,6 +174,23 @@ public class BetExpertLoginPage extends BaseTest {
         return passwordChangeHeader.isDisplayed();
     }
 
+    public boolean blockedUserLoop(String email, String password) {
+        int i = 0;
+
+        while (i < 5)
+        {
+            checkBox.click();
+            typeText(emailTxtField, email);
+            typeText(passwTxtField, password);
+            formLoginBtn.click();
+            //wdWait.until(ExpectedConditions.elementToBeClickable(formLoginBtn));
+
+            i++;
+        }
+        wdWait.until(ExpectedConditions.elementToBeClickable(blockedUserMsg));
+        return blockedUserMsg.isDisplayed();
+    }
+
 }
 
 
