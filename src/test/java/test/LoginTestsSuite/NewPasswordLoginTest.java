@@ -1,24 +1,25 @@
-package test.WarningMessagesTestSuite;
+package test.LoginTestsSuite;
 
 import base.BaseTest;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import page.BetExpertLoginPage;
 
-public class InvalidPasswordMsgTest_PossibleBug extends BaseTest {
+public class NewPasswordLoginTest extends BaseTest {
 
     BetExpertLoginPage betExpertLoginPage;
 
     @Before
-    public void SetUpTest(){
+    public void SetUp(){
         betExpertLoginPage = new BetExpertLoginPage();
     }
 
     @Test
-    public void InvalidPasswordMessageTest() {
+    public void SuccessfulLoginTest(){
         betExpertLoginPage.cookieAccept();
         betExpertLoginPage.openLoginForm();
-        Assert.assertTrue(betExpertLoginPage.invalidPasswordMsg("siv", "kombinat18"));
+        betExpertLoginPage.changePass("sivac", "kombinac18");
+        betExpertLoginPage.openLoginForm();
+        betExpertLoginPage.newPassLogin("sivac", "brutalni18");
     }
 }

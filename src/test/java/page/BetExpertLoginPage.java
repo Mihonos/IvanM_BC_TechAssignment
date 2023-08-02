@@ -3,9 +3,7 @@ package page;
 import base.BaseTest;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -59,6 +57,22 @@ public class BetExpertLoginPage extends BaseTest {
     WebElement signUpHeader;
     @FindBy(xpath = "//h2[text()=(' Request password change link ')]")
     WebElement passwordChangeHeader;
+    @FindBy(id = "be-google-social-button")
+    WebElement googleLinkBtn;
+    @FindBy(xpath = "//div/a[contains(.,' Settings ')]")
+    WebElement settingsbtn;
+    @FindBy(css = "input[formcontrolname='currentPassword']")
+    WebElement currentPassBtn;
+    @FindBy(css = "input[placeholder='Enter new password']")
+    WebElement enterNewPass;
+    @FindBy(css = "input[placeholder='Repeat new password']")
+    WebElement repeatNewPass;
+    @FindBy(xpath = "//div[text()=' Log out ']")
+    WebElement logoutBtn;
+    @FindBy(css = "div[class='be-p-bottom--small']")
+    WebElement updatePass;
+    @FindBy(id = "logo")
+    WebElement googleLogoBtn;
 
     public void cookieAccept() {
         wdWait.until(ExpectedConditions.elementToBeClickable(iAcceptBtn)).click();
@@ -128,7 +142,7 @@ public class BetExpertLoginPage extends BaseTest {
         wdWait.until(ExpectedConditions.visibilityOf(passwordWarnMsg));
         return passwordWarnMsg.isDisplayed();
     }
-
+    // method that checks if there are character number limits in the password textbox
     public void checkPassLength() {
         // Clear already typed value.
         passwTxtField.clear();
@@ -145,7 +159,7 @@ public class BetExpertLoginPage extends BaseTest {
         }
     }
 
-    public void successfulLogin(String email, String password){
+    public void successfulLogin(String email, String password) {
         typeText(emailTxtField, email);
         typeText(passwTxtField, password);
         formLoginBtn.click();
@@ -155,20 +169,21 @@ public class BetExpertLoginPage extends BaseTest {
         Assert.assertEquals("Profile", profileBtnName);
     }
 
-    public boolean specialCharactersAndNumbersAcceptance(String email, String password){
+    // method that checks if email and password fields accept mix of special characters and numbers
+    public boolean specialCharactersAndNumbersAcceptance(String email, String password) {
         typeText(emailTxtField, email);
         typeText(passwTxtField, password);
         wdWait.until(ExpectedConditions.elementToBeClickable(formLoginBtn));
         return formLoginBtn.isEnabled();
     }
 
-    public boolean signUpFreeRedirection(){
+    public boolean signUpFreeRedirection() {
         wdWait.until(ExpectedConditions.elementToBeClickable(signUpFreeBtn)).click();
         wdWait.until(ExpectedConditions.visibilityOf(signUpHeader));
         return signUpHeader.isDisplayed();
     }
 
-    public boolean forgotPasswordRedirection(){
+    public boolean forgotPasswordRedirection() {
         wdWait.until(ExpectedConditions.elementToBeClickable(forgotPassBtn)).click();
         wdWait.until(ExpectedConditions.visibilityOf(passwordChangeHeader));
         return passwordChangeHeader.isDisplayed();
@@ -177,8 +192,7 @@ public class BetExpertLoginPage extends BaseTest {
     public boolean blockedUserLoop(String email, String password) {
         int i = 0;
 
-        while (i < 5)
-        {
+        while (i < 10) {
             checkBox.click();
             typeText(emailTxtField, email);
             typeText(passwTxtField, password);
@@ -191,7 +205,61 @@ public class BetExpertLoginPage extends BaseTest {
         return blockedUserMsg.isDisplayed();
     }
 
-}
+    public void googleSignInRedirection() throws IOException {
+        //wdWait.until(ExpectedConditions.elementToBeClickable(googleLinkBtn)).click();
+        //return driver.getCurrentUrl();
+        /*try{
+            googleLinkBtn.click();
+        } catch (StaleElementReferenceException e){
+            googleLinkBtn = driver.findElement(By.xpath("//div[@class='nsm7Bb-HzV7m-LgbsSe-MJoBVe']"));
+        }
+
+        googleLinkBtn.click();
+        return driver.getCurrentUrl();*/
+
+        /*wdWait.until(ExpectedConditions.visibilityOf(googleLinkBtn)).click();
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+            File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            FileUtils.copyFile(file, new File("src/screenshots/googleSignInScreenshot.png"));*/
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", googleLinkBtn);
+        actions.moveToElement(googleLinkBtn).build().perform();
+        googleLinkBtn.click();
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+            File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            FileUtils.copyFile(file, new File("src/screenshots/googleSignInScreenshot.png"));
+        }
+    }
+
+        public void changePass(String email, String password){
+            typeText(emailTxtField, email);
+            typeText(passwTxtField, password);
+            formLoginBtn.click();
+            wdWait.until(ExpectedConditions.visibilityOf(userName)).click();
+            wdWait.until(ExpectedConditions.elementToBeClickable(settingsbtn)).click();
+            wdWait.until(ExpectedConditions.elementToBeClickable(currentPassBtn)).sendKeys("kombinac18");
+            wdWait.until(ExpectedConditions.elementToBeClickable(enterNewPass)).sendKeys("brutalni18");
+            wdWait.until(ExpectedConditions.elementToBeClickable(repeatNewPass)).sendKeys("brutalni18");
+            wdWait.until(ExpectedConditions.elementToBeClickable(updatePass)).click();
+            userName.click();
+            logoutBtn.click();
+        }
+
+    public void newPassLogin(String email, String password) {
+        typeText(emailTxtField, email);
+        typeText(passwTxtField, password);
+        formLoginBtn.click();
+        wdWait.until(ExpectedConditions.visibilityOf(userName)).click();
+        wdWait.until(ExpectedConditions.elementToBeClickable(profileBtn));
+        String profileBtnName = profileBtn.getText();
+        Assert.assertEquals("Profile", profileBtnName);
+    }
+
+    }
+
+
 
 
 
