@@ -206,23 +206,6 @@ public class BetExpertLoginPage extends BaseTest {
     }
 
     public void googleSignInRedirection() throws IOException {
-        //wdWait.until(ExpectedConditions.elementToBeClickable(googleLinkBtn)).click();
-        //return driver.getCurrentUrl();
-        /*try{
-            googleLinkBtn.click();
-        } catch (StaleElementReferenceException e){
-            googleLinkBtn = driver.findElement(By.xpath("//div[@class='nsm7Bb-HzV7m-LgbsSe-MJoBVe']"));
-        }
-
-        googleLinkBtn.click();
-        return driver.getCurrentUrl();*/
-
-        /*wdWait.until(ExpectedConditions.visibilityOf(googleLinkBtn)).click();
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
-            File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            FileUtils.copyFile(file, new File("src/screenshots/googleSignInScreenshot.png"));*/
-
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", googleLinkBtn);
         actions.moveToElement(googleLinkBtn).build().perform();
         googleLinkBtn.click();
