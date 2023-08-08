@@ -1,25 +1,24 @@
-package test.LoginTestsSuite;
+package test;
 
 import base.BaseTest;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import page.BetExpertLoginPage;
 
-public class NewPasswordLoginTest extends BaseTest {
+public class RememberMeFunctionTest extends BaseTest {
 
     BetExpertLoginPage betExpertLoginPage;
 
     @Before
-    public void SetUp(){
+    public void SetUpTest(){
         betExpertLoginPage = new BetExpertLoginPage();
     }
 
     @Test
-    public void SuccessfulLoginTest(){
+    public void RememberMeFunctionTest() {
         betExpertLoginPage.cookieAccept();
         betExpertLoginPage.openLoginForm();
-        betExpertLoginPage.changePass("sivac", "kombinac18");
-        betExpertLoginPage.openLoginForm();
-        betExpertLoginPage.newPassLogin("sivac", "brutalni18");
+        Assert.assertTrue(betExpertLoginPage.rememberMeFunction("sivac", "kombinac18"));
     }
 }

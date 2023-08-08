@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class BetExpertLoginPage extends BaseTest {
 
@@ -238,6 +239,20 @@ public class BetExpertLoginPage extends BaseTest {
         wdWait.until(ExpectedConditions.elementToBeClickable(profileBtn));
         String profileBtnName = profileBtn.getText();
         Assert.assertEquals("Profile", profileBtnName);
+    }
+
+    public boolean rememberMeFunction(String email, String password){
+        typeText(emailTxtField, email);
+        typeText(passwTxtField, password);
+        checkBox.click();
+        formLoginBtn.click();
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("window.open()");
+        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
+        driver.get("https://www.bettingexpert.com/");
+        wdWait.until(ExpectedConditions.visibilityOf(userName));
+        return userName.isDisplayed();
     }
 
     }
