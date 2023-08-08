@@ -18,6 +18,6 @@ public class SuccessfulLoginTest_Email extends BaseTest {
     public void SuccessfulLoginTest(){
         betExpertLoginPage.cookieAccept();
         betExpertLoginPage.openLoginForm();
-        betExpertLoginPage.successfulLogin("kk@mailinator.com", "kombinac18");
+        betExpertLoginPage.successfulLogin("kk@mailinator.com", "brutalni18");
     }
 }

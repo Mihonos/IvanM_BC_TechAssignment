@@ -18,6 +18,6 @@ public class SuccessfulLoginTest_Username extends BaseTest {
     public void SuccessfulLoginTest(){
         betExpertLoginPage.cookieAccept();
         betExpertLoginPage.openLoginForm();
-        betExpertLoginPage.successfulLogin("sivac", "kombinac18");
+        betExpertLoginPage.successfulLogin("sivac", "brutalni18");
     }
 }

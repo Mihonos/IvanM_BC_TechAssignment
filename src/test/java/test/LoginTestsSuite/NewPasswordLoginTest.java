@@ -18,8 +18,8 @@ public class NewPasswordLoginTest extends BaseTest {
     public void SuccessfulLoginTest(){
         betExpertLoginPage.cookieAccept();
         betExpertLoginPage.openLoginForm();
-        betExpertLoginPage.changePass("sivac", "kombinac18");
+        betExpertLoginPage.changePass("sivac", "brutalni18");
         betExpertLoginPage.openLoginForm();
-        betExpertLoginPage.newPassLogin("sivac", "brutalni18");
+        betExpertLoginPage.newPassLogin("sivac", "kombinac18");
     }
 }

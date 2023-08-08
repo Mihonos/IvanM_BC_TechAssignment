@@ -19,6 +19,6 @@ public class InvalidPasswordMsgTest extends BaseTest {
     public void InvalidPasswordMessageTest() {
         betExpertLoginPage.cookieAccept();
         betExpertLoginPage.openLoginForm();
-        Assert.assertTrue(betExpertLoginPage.invalidPasswordMsg("siv", "kombinat18"));
+        Assert.assertTrue(betExpertLoginPage.invalidPasswordMsg("sivac", "kombinat18"));
     }
 }

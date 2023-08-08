@@ -192,7 +192,7 @@ public class BetExpertLoginPage extends BaseTest {
     public boolean blockedUserLoop(String email, String password) {
         int i = 0;
 
-        while (i < 10) {
+        while (i < 8) {
             checkBox.click();
             typeText(emailTxtField, email);
             typeText(passwTxtField, password);

@@ -19,6 +19,6 @@ public class UnsuccessfulLoginTest_WrongUser extends BaseTest {
     public void WrongUsernameTest(){
         betExpertLoginPage.cookieAccept();
         betExpertLoginPage.openLoginForm();
-        Assert.assertTrue(betExpertLoginPage.invalidUserWarningMsg("si", "kombinat18"));
+        Assert.assertTrue(betExpertLoginPage.invalidUserWarningMsg("si", "brutalni18"));
     }
 }
